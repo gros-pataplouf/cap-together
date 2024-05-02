@@ -11,6 +11,8 @@
     <h1>HELLO FROM CAPSITE</h1>
     <div id="app"><!--ssr-outlet--></div>
     <div id="app2"></div>
+    {% block content %}
+    {% endblock %}
     <script type="module">
         import RefreshRuntime from 'http://localhost:5173/@react-refresh'
         RefreshRuntime.injectIntoGlobalHook(window)
