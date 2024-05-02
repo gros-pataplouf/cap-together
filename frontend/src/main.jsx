@@ -8,8 +8,8 @@ ReactDOM.createRoot(document.getElementById('app')).render(
     <App />
   </React.StrictMode>,
 )
-ReactDOM.createRoot(document.getElementById('app2')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+// ReactDOM.createRoot(document.getElementById('app2')).render(
+//   <React.StrictMode>
+//     <App />
+//   </React.StrictMode>,
+// )
