@@ -4,7 +4,14 @@ from wagtail.models import Page
 from wagtail.fields import RichTextField
 
 # import MultiFieldPanel:
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.admin.panels import (
+    FieldPanel,
+    MultiFieldPanel,
+)
+from wagtail.contrib.settings.models import (
+    BaseGenericSetting,
+    register_setting,
+)
 
 
 class HomePage(Page):
@@ -51,4 +58,21 @@ class HomePage(Page):
             heading="Hero section",
         ),
         FieldPanel('body'),
+    ]
+
+@register_setting
+class NavigationSettings(BaseGenericSetting):
+    twitter_url = models.URLField(verbose_name="Twitter URL", blank=True)
+    github_url = models.URLField(verbose_name="GitHub URL", blank=True)
+    mastodon_url = models.URLField(verbose_name="Mastodon URL", blank=True)
+
+    panels = [
+        MultiFieldPanel(
+            [
+                FieldPanel("twitter_url"),
+                FieldPanel("github_url"),
+                FieldPanel("mastodon_url"),
+            ],
+            "Social settings",
+        )
     ]

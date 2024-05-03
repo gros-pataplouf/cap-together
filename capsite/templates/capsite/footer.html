@@ -1,7 +1,5 @@
 <footer>
-    <p>Built with Wagtail</p>
-
-    {% with twitter_url=settings.base.NavigationSettings.twitter_url github_url=settings.base.NavigationSettings.github_url mastodon_url=settings.base.NavigationSettings.mastodon_url %}
+    {% with twitter_url=settings.capsite.NavigationSettings.twitter_url github_url=settings.capsite.NavigationSettings.github_url mastodon_url=settings.capsite.NavigationSettings.mastodon_url %}
         {% if twitter_url or github_url or mastodon_url %}
             <p>
                 Follow me on:
