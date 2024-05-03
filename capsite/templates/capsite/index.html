@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load wagtailuserbar %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,13 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CAPSITE TEST</title>
 </head>
-<body>
-    <h1>HELLO FROM CAPSITE</h1>
-    <div id="app"><!--ssr-outlet--></div>
-    <div id="app2"></div>
-    {% block content %}
+<body class="{% block body_class %}{% endblock %}">
+    {% wagtailuserbar %}
+
+    {% block content %}{% endblock %}
+
+    {# Add this to the file: #}
+    {% include "capsite/footer.html" %}
+
+    {# Global javascript #}
+    <script type="text/javascript" src="{% static 'js/mysite.js' %}"></script>
+
+    {% block extra_js %}
+    {# Override this in templates to add extra javascript #}
     {% endblock %}
-    <script type="module">
+</body>    <script type="module">
         import RefreshRuntime from 'http://localhost:5173/@react-refresh'
         RefreshRuntime.injectIntoGlobalHook(window)
         window.$RefreshReg$ = () => {}
