@@ -1,0 +1,29 @@
+{
+  "src/animations.js": {
+    "file": "capsite/animations.js",
+    "name": "animations",
+    "src": "src/animations.js",
+    "isEntry": true
+  },
+  "src/assets/react.svg": {
+    "file": "capsite/react.svg",
+    "src": "src/assets/react.svg"
+  },
+  "src/index.css": {
+    "file": "capsite/styles.css",
+    "src": "src/index.css",
+    "isEntry": true
+  },
+  "src/main.jsx": {
+    "file": "capsite/main.js",
+    "name": "main",
+    "src": "src/main.jsx",
+    "isEntry": true,
+    "css": [
+      "capsite/styles.css"
+    ],
+    "assets": [
+      "capsite/react.svg"
+    ]
+  }
+}

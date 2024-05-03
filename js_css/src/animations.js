@@ -1,6 +1,6 @@
 import gsap from "gsap";
 
-console.log('hello from gsap.js')
+console.log('hello from animations.js')
 
 const animate = () => {
         const gsapHeader = document.querySelector("#gsapHeader")
