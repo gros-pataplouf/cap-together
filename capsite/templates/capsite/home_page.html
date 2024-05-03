@@ -13,7 +13,7 @@
     {% image page.image fill-480x320 %}
     <p>{{ page.hero_text }}</p>
     {% if page.hero_cta_link %}
-        <a class="btn" href="{% pageurl page.hero_cta_link %}">
+        <a class="btn btn-primary" href="{% pageurl page.hero_cta_link %}">
             {% firstof page.hero_cta page.hero_cta_link.title %}
         </a>
     {% endif %}

@@ -1,14 +1,15 @@
 {% load wagtailcore_tags capsite_extras %}
 
-
-<header class="bg-slate-600">
+<header>
     {% get_site_root as site_root %}
-    <nav class="navbar navbar-start">
-        <p>
-        <a href="{% pageurl site_root %}">Home</a> |
+    <nav class="navbar bg-slate-800">
+        <div class="navbar-start">
+            <a class="btn btn-ghost text-white" href="{% pageurl site_root %}">Home</a>
+        </div>
         {% for menuitem in site_root.get_children.live.in_menu %}
-            <a class="navbar-end" href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
+        <div aria-label="{{ menuitem.title }}">
+        <a class="navbar-center" href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
+        </div>
         {% endfor %}
-        </p>
     </nav>
 </header>
