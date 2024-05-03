@@ -8,18 +8,22 @@
 <!-- replace everything below with: -->
 {% block content %}
 
-<div>
-    <h1>{{ page.title }}</h1>
-    {% image page.image fill-480x320 %}
-    <p>{{ page.hero_text }}</p>
+
+<div class="overflow-hidden bg-gray-900 px-10 py-24 sm:px-0 flex flex-col items-center">
+    <div class="mx-auto">
+        <h2 class="text-4xl font-bold tracking-tight text-white sm:text-6xl">{{ page.title }}</h2>
+        <p class="mt-6 text-lg leading-8 text-gray-200">{{ page.hero_text }}</p>
+        <p class="mt-6 text-lg leading-4 text-gray-300">{{ page.body|richtext }}</p>
+    </div>
+    
     {% if page.hero_cta_link %}
-        <a class="btn btn-primary" href="{% pageurl page.hero_cta_link %}">
-            {% firstof page.hero_cta page.hero_cta_link.title %}
-        </a>
+    <a class="btn btn-primary" href="{% pageurl page.hero_cta_link %}">
+        {% firstof page.hero_cta page.hero_cta_link.title %}
+    </a>
     {% endif %}
+    <!-- {% image page.image fill-480x320 %} -->
 </div>
 
-{{ page.body|richtext }}
 
 
 {% endblock %}

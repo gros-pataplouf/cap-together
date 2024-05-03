@@ -7,8 +7,8 @@
             <a class="btn btn-ghost text-white" href="{% pageurl site_root %}">Home</a>
         </div>
         {% for menuitem in site_root.get_children.live.in_menu %}
-        <div aria-label="{{ menuitem.title }}">
-        <a class="navbar-center" href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
+        <div class="navbar-start"  aria-label="{{ menuitem.title }}">
+        <a  class="btn btn-ghost" href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
         </div>
         {% endfor %}
     </nav>
