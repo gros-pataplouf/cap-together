@@ -1,7 +1,7 @@
 {% load static %}
 {% load wagtailuserbar %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,16 +9,12 @@
     <link rel="stylesheet" href="{% static 'capsite/styles.css' %}">
     {% endif %}
 
-
-
     <title>CAP together</title>
 </head>
 <body class="relative">
     {% if DEBUG %}
     <div class="btn btn-warning absolute left-0 top-24">DEBUG on</div>
     {% endif %}
-
-
     {% wagtailuserbar %}
     {% include "capsite/header.html" %}
     {% block content %}{% endblock %}
