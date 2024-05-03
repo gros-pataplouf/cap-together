@@ -5,32 +5,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CAPSITE TEST</title>
+    <title>CAP together</title>
 </head>
-<body>
+<body class="relative">
+    {% if DEBUG %}
+    <div class="btn btn-warning absolute left-0 top-24">DEBUG on</div>
+    {% endif %}
+
+
     {% wagtailuserbar %}
     {% include "capsite/header.html" %}
     {% block content %}{% endblock %}
 
-    {# Add this to the file: #}
     {% include "capsite/footer.html" %}
 
-    {# Global javascript #}
-    <script type="text/javascript" src="{% static 'js/mysite.js' %}"></script>
 
     {% block extra_js %}
     {# Override this in templates to add extra javascript #}
     {% endblock %}
-</body>    <script type="module">
-        import RefreshRuntime from 'http://localhost:5173/@react-refresh'
-        RefreshRuntime.injectIntoGlobalHook(window)
-        window.$RefreshReg$ = () => {}
-        window.$RefreshSig$ = () => (type) => type
-        window.__vite_plugin_react_preamble_installed__ = true
-      </script>
-    <script type="module" src="http://localhost:5173/@vite/client"></script>
-    <script type="module" src="http://localhost:5173/src/main.jsx"></script>
-    <script type="module" src="http://localhost:5173/src/animations.js"></script>
+   
+</body> 
+{% if DEBUG %} 
+<script type="module">
+    import RefreshRuntime from 'http://localhost:5173/@react-refresh'
+    RefreshRuntime.injectIntoGlobalHook(window)
+    window.$RefreshReg$ = () => {}
+    window.$RefreshSig$ = () => (type) => type
+    window.__vite_plugin_react_preamble_installed__ = true
+  </script>
+<script type="module" src="http://localhost:5173/@vite/client"></script>
+<script type="module" src="http://localhost:5173/src/main.jsx"></script>
+<script type="module" src="http://localhost:5173/src/animations.js"></script>
+
+{% endif %}
+
 </body>
 </html>
 
