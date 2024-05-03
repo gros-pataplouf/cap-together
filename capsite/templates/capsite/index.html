@@ -5,6 +5,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if not DEBUG %}
+    <link rel="stylesheet" href="{% static 'capsite/styles.css' %}">
+    {% endif %}
+
+
+
     <title>CAP together</title>
 </head>
 <body class="relative">
@@ -36,6 +42,10 @@
 <script type="module" src="http://localhost:5173/@vite/client"></script>
 <script type="module" src="http://localhost:5173/src/main.jsx"></script>
 <script type="module" src="http://localhost:5173/src/animations.js"></script>
+{% else %}
+
+<script type="module" src="{% static 'capsite/animations.js' %}"></script>
+<script type="module" src="{% static 'capsite/main.js' %}"></script>
 
 {% endif %}
 
