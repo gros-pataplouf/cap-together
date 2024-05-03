@@ -1,0 +1,14 @@
+{% load wagtailcore_tags capsite_extras %}
+
+
+<header class="bg-slate-600">
+    {% get_site_root as site_root %}
+    <nav class="navbar navbar-start">
+        <p>
+        <a href="{% pageurl site_root %}">Home</a> |
+        {% for menuitem in site_root.get_children.live.in_menu %}
+            <a class="navbar-end" href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
+        {% endfor %}
+        </p>
+    </nav>
+</header>
