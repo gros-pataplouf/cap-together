@@ -3,7 +3,7 @@
 <header>
     {% get_site_root as site_root %}
     <nav id="gsapHeader" class="navbar opacity-100 bg-slate-800">
-        <div class="navbar-start">
+        <div id="reactElt" class="navbar-start">
             <a class="btn btn-ghost text-white" href="{% pageurl site_root %}">Home</a>
         </div>
         {% for menuitem in site_root.get_children.live.in_menu %}
