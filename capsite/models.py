@@ -60,6 +60,7 @@ class HomePage(Page):
         FieldPanel('body'),
     ]
 
+
 @register_setting
 class NavigationSettings(BaseGenericSetting):
     twitter_url = models.URLField(verbose_name="Twitter URL", blank=True)

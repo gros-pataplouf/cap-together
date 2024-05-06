@@ -145,7 +145,9 @@ MEDIA_URL = '/media/'
 WAGTAIL_SITE_NAME = 'Cap Together - Admin Area'
 
 """
-Add a WAGTAILADMIN_BASE_URL - this is the base URL used by the Wagtail admin site. It is typically used for generating URLs to include in notification emails:
+Add a WAGTAILADMIN_BASE_URL.
+This is the base URL used by the Wagtail admin site.
+It is typically used for generating URLs to include in notification emails.
 """
 
 WAGTAILADMIN_BASE_URL = 'http://example.com'

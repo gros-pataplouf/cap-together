@@ -13,7 +13,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='NavigationSettings',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('twitter_url', models.URLField(blank=True, verbose_name='Twitter URL')),
                 ('github_url', models.URLField(blank=True, verbose_name='GitHub URL')),
                 ('mastodon_url', models.URLField(blank=True, verbose_name='Mastodon URL')),

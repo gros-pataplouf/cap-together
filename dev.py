@@ -1,6 +1,7 @@
 import os
 
-#has to be run within an activated virtual environment and works with zsh / gnome-terminal
+# has to be run within an activated virtual environment and works with zsh / gnome-terminal
+
 
 def main():
     os.system('gnome-terminal -- zsh -c "python manage.py runserver; exec zsh"')
