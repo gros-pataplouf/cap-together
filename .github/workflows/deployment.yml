@@ -28,7 +28,7 @@ jobs:
             - name: Install PY requirements
               run: pip install -r requirements.txt
             - name: Run unittests
-              run: pip run pytest
+              run: pytest
 
 
               
