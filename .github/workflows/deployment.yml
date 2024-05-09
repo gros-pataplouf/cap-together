@@ -19,20 +19,22 @@ jobs:
                 cache: 'pip'
             - uses: actions/setup-node@v4
               with:
-              # Version Spec of the version to use in SemVer notation.
-              # It also emits such aliases as lts, latest, nightly and canary builds
-              # Examples: 12.x, 10.15.1, >=10.15.0, lts/Hydrogen, 16-nightly, latest, node
                 node-version: '20'
-            - name: build node dependencies
-              run: cd js_css && npm install && npm run build && rm -rf node_modules
+            - name: install npm and build frontend
+              run: cd js_css && npm install && npm run build
+            - name: lint js / react code
+              run: npm run lint
+            - name: unittest for react
+              run: npm run test
             - name: Install PY requirements
               run: pip install -r requirements.txt
+            - name: run flake8
+              run: flake8 core capsite users
             - name: Run unittests
-              run: pip run pytest
-
-
-              
-            # - name: Start server
-            #   run: python manage.py runserver
-
-
+              run: pytest
+            - name: Install Railway
+              run: npm i -g @railway/cli
+            - name: Deploy
+              run: railway up
+              env:
+                RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
