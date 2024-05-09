@@ -17,8 +17,22 @@ jobs:
               with:
                 python-version: '3.12'
                 cache: 'pip'
-            - name: Display Python version
+            - uses: actions/setup-node@v4
+              with:
+              # Version Spec of the version to use in SemVer notation.
+              # It also emits such aliases as lts, latest, nightly and canary builds
+              # Examples: 12.x, 10.15.1, >=10.15.0, lts/Hydrogen, 16-nightly, latest, node
+                node-version: '20'
+            - name: build node dependencies
+              run: cd js_css && npm install && npm run build && rm -rf node_modules
+            - name: Install PY requirements
               run: pip install -r requirements.txt
-            - name: Start server
-              run: python manage.py runserver
+            - name: Run unittests
+              run: pip run pytest
+
+
+              
+            # - name: Start server
+            #   run: python manage.py runserver
+
 
