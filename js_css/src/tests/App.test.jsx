@@ -5,7 +5,7 @@ import App from "../../src/App";
 
 
 describe('App', () => {
-  test('renders headline', () => {
+  test('react component renders', () => {
     render(<App />);
     const text = screen.getByText("Klick mich");
     expect(text).toBeInTheDocument()
