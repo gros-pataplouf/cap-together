@@ -22,10 +22,10 @@ jobs:
                 node-version: '20'
             - name: install npm and build frontend
               run: cd js_css && npm install && npm run build
-            - name: lint js / react code
-              run: cd js_css && npm install && npm run lint
+            - name: Run linter
+              run: cd js_css && npm run lint
             - name: unittest for react
-              run: npm run test
+              run: cd js_css && npm run test
             - name: Install PY requirements
               run: pip install -r requirements.txt
             - name: run flake8
