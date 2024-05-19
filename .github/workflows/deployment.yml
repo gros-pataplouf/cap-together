@@ -23,7 +23,7 @@ jobs:
             - name: install npm and build frontend
               run: cd js_css && npm install && npm run build
             - name: lint js / react code
-              run: npm run lint
+              run: cd js_css && npm install && npm run lint
             - name: unittest for react
               run: npm run test
             - name: Install PY requirements
