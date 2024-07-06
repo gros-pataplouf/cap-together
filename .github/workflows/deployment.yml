@@ -9,7 +9,7 @@ on:
     #     types: [opened, synchronize]
 
 jobs:
-    simple_deployment_pipeline:
+    deployment_pipeline:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
@@ -31,7 +31,7 @@ jobs:
             - name: run flake8
               run: flake8 core capsite users
             - name: Run unittests
-              run: pytest
+              run: python manage.py test
             - name: Install Railway
               run: npm i -g @railway/cli
             - name: Deploy
