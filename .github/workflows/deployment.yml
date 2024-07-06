@@ -32,8 +32,14 @@ jobs:
               run: flake8 core capsite users
             - name: Run unittests
               run: python manage.py test
-            - name: Run cypress e2e tests
-              run: python dev.py && cd tests && npm install && npm run cypress:open
+            - name: Run e2e tests
+              uses: cypress-io/github-action@v5
+              env:
+                SECRET_KEY: ${{ secrets.DJANGO_SECRET }}
+              with:
+                working-directory: ./tests
+                start: gunicorn ../core/wsgi.py
+                wait-on: http://localhost:8000
             - name: Install Railway
               run: npm i -g @railway/cli
             - name: Deploy
