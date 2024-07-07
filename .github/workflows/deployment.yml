@@ -19,7 +19,7 @@ jobs:
             - uses: actions/setup-node@v4
               with:
                 node-version: '20'
-            - name: install npm and build frontend
+            - name: Install npm and build frontend #the collectstatic command will pick up the files later
               run: cd js_css && npm install && npm run build
             - name: Run linter
               run: cd js_css && npm run lint
@@ -78,7 +78,7 @@ jobs:
           if: success()
           with:
               severity: info
-              details: ${{ github.event.pull_request.user.login }} just deployed a new version of ${{ github.repo }} !
+              details: ${{ github.event.pull_request.user.login }} just deployed a new version of ${{ github.repo.name }} !
               webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
         - name: Deployment failure
           uses: rjstone/discord-webhook-notify@v1
