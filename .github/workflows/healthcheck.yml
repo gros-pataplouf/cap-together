@@ -1,0 +1,31 @@
+name: Healthcheck
+
+on:
+    schedule:
+      - cron:  '0 0 31 * *'
+jobs:
+    healthcheck:
+        runs-on: ubuntu-20.04
+        steps:
+            - name: Check the deployed service URL
+              uses: jtalk/url-health-check-action@v4
+              with:
+                url: ${{ secrets.DEPLOYMENT_URL }}
+                follow-redirect: false # Optional, defaults to "false"
+                max-attempts: 3 # Optional, defaults to 1
+                retry-delay: 60s # Optional, only applicable to max-attempts > 1
+            -   name: Health check succeeded
+                if: success()
+                uses: rjstone/discord-webhook-notify@v1
+                with:
+                    severity: info
+                    details: Health check successful for CAPTOGETHER.
+                    webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+
+            -   name: Health check failed
+                if: failure()
+                uses: rjstone/discord-webhook-notify@v1
+                with:
+                    severity: error
+                    details: Health check just failed for CAPTOGETHER.
+                    webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
