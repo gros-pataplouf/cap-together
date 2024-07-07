@@ -4,6 +4,11 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  test: {
+    environment: 'jsdom',
+    setupFiles: ['./src/tests/setupTests.js'],
+    globals: true
+    },
   build: {
     outDir: '../capsite/static',
     assetsDir: '',

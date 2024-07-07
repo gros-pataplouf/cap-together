@@ -9,7 +9,7 @@ on:
     #     types: [opened, synchronize]
 
 jobs:
-    simple_deployment_pipeline:
+    deployment_pipeline:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
@@ -17,8 +17,37 @@ jobs:
               with:
                 python-version: '3.12'
                 cache: 'pip'
-            - name: Display Python version
+            - uses: actions/setup-node@v4
+              with:
+                node-version: '20'
+            - name: install npm and build frontend
+              run: cd js_css && npm install && npm run build
+            - name: Run linter
+              run: cd js_css && npm run lint
+            - name: Unittest for react
+              run: cd js_css && npm run test
+            - name: Install python requirements
               run: pip install -r requirements.txt
-            - name: Start server
-              run: python manage.py runserver
-
+            - name: run flake8
+              run: flake8 core capsite users
+            - name: Run unittests
+              run: python manage.py test
+            - name: Launch django server
+              env:
+                SECRET_KEY: ${{ secrets.DJANGO_SECRET }}
+              run: |
+                  python manage.py collectstatic --no-input &&
+                  DJANGO_SETTINGS_MODULE=core.settings.test gunicorn core.wsgi &
+            - name: Run e2e tests with cypress
+              uses: cypress-io/github-action@v5
+              with:
+                working-directory: ./tests
+                wait-on: http://localhost:8000
+            - name: Kill gunicorn from previous step
+              run: killall gunicorn
+            - name: Install Railway
+              run: npm i -g @railway/cli
+            - name: Deploy
+              run: railway up --service=captogether
+              env:
+                RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
