@@ -78,7 +78,7 @@ jobs:
           if: success()
           with:
               severity: info
-              details: ${{ github.event.pull_request.user.login }} just deployed a new version of ${{ github.repo.name }} !
+              details: ${{ github.event.pull_request.user.login }} just deployed a new version of CAPTOGETHER !
               webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
         - name: Deployment failure
           uses: rjstone/discord-webhook-notify@v1
