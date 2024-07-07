@@ -1,12 +1,10 @@
 name: deployment_pipeline
-on:
-  workflow_dispatch
-    # push:
-    #     branches:
-    #         - main
-    # pull_request:
-    #     branches: [main]
-    #     types: [opened, synchronize]
+    push:
+        branches:
+            - main
+    pull_request:
+        branches: [main]
+        types: [opened, synchronize]
 
 jobs:
     deployment_pipeline:
@@ -28,9 +26,9 @@ jobs:
               run: cd js_css && npm run test
             - name: Install python requirements
               run: pip install -r requirements.txt
-            - name: run flake8
+            - name: Run flake8
               run: flake8 core capsite users
-            - name: Run unittests
+            - name: Run django unittest
               run: python manage.py test
             - name: Launch django server
               env:
@@ -51,3 +49,38 @@ jobs:
               run: railway up --service=captogether
               env:
                 RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+
+    tag_release:
+      needs: [deployment_pipeline]
+      if: ${{ github.event_name == 'push' }}
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+        - name: Set skip
+          id: set-skip
+          run: echo "SKIP=${{ contains(join(github.event.commits.*.message), '#skip') }}" >> "$GITHUB_OUTPUT"
+        - name: Bump version and push tag
+          env:
+            SKIP: ${{ steps.set-skip.outputs.SKIP }}
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            DEFAULT_BUMP: patch
+          if: ${{ !fromJson(env.SKIP) }}
+          uses: anothrNick/github-tag-action@1.67.0
+      
+      notify_discord:
+        needs: [deployment_pipeline]
+        - name: Success
+          uses: rjstone/discord-webhook-notify@v1
+          if: success()
+          with:
+              severity: info
+              details: ${{ github.event.pull_request.user.login }} just released a new version of ${{ github.event.repo }} !
+              webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+        - name: Deployment failure
+          uses: rjstone/discord-webhook-notify@v1
+          if: success()
+          with:
+              severity: error
+              details: Deployment by ${{ github.event.pull_request.user.login }} just failed for ${{ github.event.repo }} !
+              webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
