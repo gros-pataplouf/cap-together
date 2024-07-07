@@ -24,23 +24,27 @@ jobs:
               run: cd js_css && npm install && npm run build
             - name: Run linter
               run: cd js_css && npm run lint
-            - name: unittest for react
+            - name: Unittest for react
               run: cd js_css && npm run test
-            - name: Install PY requirements
+            - name: Install python requirements
               run: pip install -r requirements.txt
             - name: run flake8
               run: flake8 core capsite users
             - name: Run unittests
               run: python manage.py test
-            - name: Run e2e tests
-              uses: cypress-io/github-action@v5
+            - name: Launch django server
               env:
                 SECRET_KEY: ${{ secrets.DJANGO_SECRET }}
+              run: |
+                  python manage.py collectstatic --no-input &&
+                  DJANGO_SETTINGS_MODULE=core.settings.test gunicorn core.wsgi &
+            - name: Run e2e tests with cypress
+              uses: cypress-io/github-action@v5
               with:
                 working-directory: ./tests
-                run: cd ..
-                start: gunicorn core.wsgi
                 wait-on: http://localhost:8000
+            - name: Kill gunicorn from previous step
+              run: killall gunicorn
             - name: Install Railway
               run: npm i -g @railway/cli
             - name: Deploy
