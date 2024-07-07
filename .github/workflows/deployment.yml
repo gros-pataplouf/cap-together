@@ -69,19 +69,21 @@ jobs:
           if: ${{ !fromJson(env.SKIP) }}
           uses: anothrNick/github-tag-action@1.67.0
       
-      notify_discord:
-        needs: [deployment_pipeline]
-        - name: Success
+    notify_discord:
+      needs: [deployment_pipeline]
+      runs-on: ubuntu-latest
+      steps:
+        - name: Deployment success
           uses: rjstone/discord-webhook-notify@v1
           if: success()
           with:
               severity: info
-              details: ${{ github.event.pull_request.user.login }} just released a new version of ${{ github.event.repo }} !
+              details: ${{ github.event.pull_request.user.login }} just deployed a new version of ${{ github.event.repo }} !
               webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
         - name: Deployment failure
           uses: rjstone/discord-webhook-notify@v1
-          if: success()
+          if: failure()
           with:
               severity: error
-              details: Deployment by ${{ github.event.pull_request.user.login }} just failed for ${{ github.event.repo }} !
+              details: Deployment by ${{ github.event.pull_request.user.login }} just failed !
               webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
