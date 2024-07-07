@@ -1,5 +1,5 @@
 """
-For cypress testing. Just like prod, but without HTTPS, SSL etc. 
+For cypress testing. Just like prod, but without HTTPS, SSL etc.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/5.0/topics/settings/
