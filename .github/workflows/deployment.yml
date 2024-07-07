@@ -38,7 +38,8 @@ jobs:
                 SECRET_KEY: ${{ secrets.DJANGO_SECRET }}
               with:
                 working-directory: ./tests
-                start: gunicorn ../core/wsgi.py
+                run: cd ..
+                start: gunicorn core.wsgi
                 wait-on: http://localhost:8000
             - name: Install Railway
               run: npm i -g @railway/cli
